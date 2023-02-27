@@ -1,1 +1,2 @@
-print("Hello from carte init")
+require("carte.remap")
+require("carte.set")
