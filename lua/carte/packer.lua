@@ -12,6 +12,10 @@ return require('packer').startup(function(use)
   -- Treesitter for AST
   use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate" }
 
+  -- VIM Fugitive: GIT Wrapper
+  use 'tpope/vim-fugitive'
+
+  -- LSP Zero: No effort LSP setup
   use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v1.x',

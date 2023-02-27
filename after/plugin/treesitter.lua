@@ -1,5 +1,5 @@
 require "nvim-treesitter.configs".setup {
-	ensure_installed = { "help", "typescript", "c", "lua", "cpp", "dockerfile", "python" },
+	ensure_installed = { "help", "typescript", "lua", "python" },
 
 	sync_install = false,
 
