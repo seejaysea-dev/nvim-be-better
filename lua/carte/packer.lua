@@ -10,7 +10,12 @@ return require('packer').startup(function(use)
   }
 
   -- Treesitter for AST
-  use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate" }
+  use { 'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end
+    }
 
   -- VIM Fugitive: GIT Wrapper
   use 'tpope/vim-fugitive'
@@ -57,10 +62,11 @@ use {
 
   -- Setup color scheme
   use({
-	  'rose-pine/neovim',
-	  as = 'rose-pine',
+      'rose-pine/neovim',
+      as = 'rose-pine',
 	  config = function()
-		  vim.cmd('colorscheme rose-pine')
+          require('rose-pine').setup()
+          vim.cmd('colorscheme rose-pine')
 	  end
   })
 end)
