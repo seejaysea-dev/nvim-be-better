@@ -3,4 +3,4 @@ function ColorMePretty(color)
 	vim.cmd.colorscheme(color)
 end
 
-ColorMePretty()
+ColorMePretty("gruvbox-material")
