@@ -40,6 +40,12 @@ return require('packer').startup(function(use)
 	  }
   }
 
+  -- Lualine: Prettier file info at the bottom
+  use {
+      "nvim-lualine/lualine.nvim",
+      requires = { "nvim-tree/nvim-web-devicons", opt = true }
+  }
+
   -- folke/trouble: Diagnostics
   use {
       "folke/trouble.nvim",
@@ -56,6 +62,21 @@ return require('packer').startup(function(use)
       'rose-pine/neovim',
       as = 'rose-pine',
   })
+
+  -- Add Nord colors
+  -- use 'shaunsingh/nord.nvim'
+
+  -- Add gruvbox material
+  use {
+      'sainnhe/gruvbox-material',
+      enabled = false,
+      priority = 1000,
+      config = function()
+          vim.o.background = "dark"
+          vim.g.gruvbox_material_background = "hard"
+          vim.cmd.colorscheme 'gruvbox-material'
+      end,
+  }
 
   -- neo-tree: Directory plugin
   -- First, disable legacy commands
