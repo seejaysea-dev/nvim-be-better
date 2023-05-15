@@ -8,18 +8,16 @@ return require('packer').startup(function(use)
   }
 
   -- Treesitter for AST
-  use { 'nvim-treesitter/nvim-treesitter',
-        run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-        end
-    }
+  use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate'
+  }
 
   -- VIM Fugitive: GIT Wrapper
   use 'tpope/vim-fugitive'
 
   -- LSP Zero: No effort LSP setup
-  use {
+    use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v1.x',
 	  requires = {
@@ -42,37 +40,15 @@ return require('packer').startup(function(use)
 	  }
   }
 
-  -- Trouble setup
+  -- folke/trouble: Diagnostics
   use {
-  	  'folke/trouble.nvim',
-    requires = 'nvim-tree/nvim-web-devicons',
-    config = function()
-  	  require("trouble").setup {
-  	  }
-    end
-  }
-
-  -- Neotree file explorer
-  use {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v2.x",
-      requires = {
-          "nvim-lua/plenary.nvim",
-          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-          "MunifTanjim/nui.nvim",
-      }
-  }
-
-  -- Comment utility (TODO)
-  use {
-      "folke/todo-comments.nvim"
-  }
-
-
-  use {
-      'nvim-lualine/lualine.nvim',
-      as = "lualine",
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true, theme='nord' }
+      "folke/trouble.nvim",
+      requires = "nvim-tree/nvim-web-devicons",
+      config = function()
+          require("trouble").setup {
+              -- Add custom config here
+        }
+      end
   }
 
   -- Setup color scheme
@@ -81,12 +57,18 @@ return require('packer').startup(function(use)
       as = 'rose-pine',
   })
 
-  -- gruvbox-material
+  -- neo-tree: Directory plugin
+  -- First, disable legacy commands
+  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1]])
+
   use {
-      "sainnhe/gruvbox-material",
-      config = function()
-          vim.o.background = "dark"
-          vim.g.gruvbox_material_background = "hard"
-      end,
+      "nvim-neo-tree/neo-tree.nvim",
+      branch="v2.x",
+      requires = {
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons",
+          "MunifTanjim/nui.nvim",
+      }
   }
+
 end)
