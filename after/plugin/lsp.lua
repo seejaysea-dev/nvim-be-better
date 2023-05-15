@@ -1,7 +1,6 @@
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
-
 lsp.setup_servers({ 'tsserver' })
 
 lsp.nvim_workspace()
