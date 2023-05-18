@@ -1,5 +1,3 @@
-vim.cmd [[packadd packer.nvim]]
-
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
@@ -44,29 +42,51 @@ return require('packer').startup(function(use)
 	  }
   }
 
-  -- Trouble setup: TODO
-  -- use {
-  -- 	  'folke/trouble.nvim',
-  --	  requires = 'nvim-tree/nvim-web-devicons',
-  --	  config = function()
-  --		  require("trouble").setup {
-  --		  }
-  --	  end
-  -- }
+  -- Trouble setup
+  use {
+  	  'folke/trouble.nvim',
+    requires = 'nvim-tree/nvim-web-devicons',
+    config = function()
+  	  require("trouble").setup {
+  	  }
+    end
+  }
 
-use {
-  'nvim-lualine/lualine.nvim',
-  as = "lualine",
-  requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-}
+  -- Neotree file explorer
+  use {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
+      requires = {
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+          "MunifTanjim/nui.nvim",
+      }
+  }
+
+  -- Comment utility (TODO)
+  use {
+      "folke/todo-comments.nvim"
+  }
+
+
+  use {
+      'nvim-lualine/lualine.nvim',
+      as = "lualine",
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true, theme='nord' }
+  }
 
   -- Setup color scheme
   use({
       'rose-pine/neovim',
       as = 'rose-pine',
-	  config = function()
-          require('rose-pine').setup()
-          vim.cmd('colorscheme rose-pine')
-	  end
   })
+
+  -- gruvbox-material
+  use {
+      "sainnhe/gruvbox-material",
+      config = function()
+          vim.o.background = "dark"
+          vim.g.gruvbox_material_background = "hard"
+      end,
+  }
 end)
