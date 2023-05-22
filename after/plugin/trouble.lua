@@ -1,0 +1,2 @@
+-- Trouble remaps
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
