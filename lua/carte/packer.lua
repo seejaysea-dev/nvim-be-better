@@ -48,13 +48,24 @@ return require('packer').startup(function(use)
 
   -- folke/trouble: Diagnostics
   use {
-      "folke/trouble.nvim",
-      requires = "nvim-tree/nvim-web-devicons",
-      config = function()
-          require("trouble").setup {
-              -- Add custom config here
-        }
-      end
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
+      requires = {
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+          "MunifTanjim/nui.nvim",
+      }
+  }
+
+  -- Comment utility (TODO)
+  use {
+      "folke/todo-comments.nvim"
+
+
+  use {
+      'nvim-lualine/lualine.nvim',
+      as = "lualine",
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true, theme='nord' }
   }
 
   -- Setup color scheme
