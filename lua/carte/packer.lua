@@ -8,18 +8,16 @@ return require('packer').startup(function(use)
   }
 
   -- Treesitter for AST
-  use { 'nvim-treesitter/nvim-treesitter',
-        run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-        end
-    }
+  use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate'
+  }
 
   -- VIM Fugitive: GIT Wrapper
   use 'tpope/vim-fugitive'
 
   -- LSP Zero: No effort LSP setup
-  use {
+    use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v1.x',
 	  requires = {
@@ -66,8 +64,7 @@ return require('packer').startup(function(use)
   -- Comment utility (TODO)
   use {
       "folke/todo-comments.nvim"
-  }
-
+  
 
   use {
       'nvim-lualine/lualine.nvim',
