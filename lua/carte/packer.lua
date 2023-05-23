@@ -60,6 +60,7 @@ return require('packer').startup(function(use)
   -- Comment utility (TODO)
   use {
       "folke/todo-comments.nvim"
+  }
 
 
   use {
