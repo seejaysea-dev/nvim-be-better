@@ -40,17 +40,6 @@ return require('packer').startup(function(use)
 	  }
   }
 
-  -- Trouble setup
-  use {
-  	  'folke/trouble.nvim',
-    requires = 'nvim-tree/nvim-web-devicons',
-    config = function()
-  	  require("trouble").setup {
-  	  }
-    end
-  }
-
-  -- Neotree file explorer
   use {
       "nvim-neo-tree/neo-tree.nvim",
       branch = "v2.x",
@@ -79,12 +68,33 @@ return require('packer').startup(function(use)
       as = 'rose-pine',
   })
 
-  -- gruvbox-material
+  -- Add Nord colors
+  -- use 'shaunsingh/nord.nvim'
+
+  -- Add gruvbox material
   use {
-      "sainnhe/gruvbox-material",
+      'sainnhe/gruvbox-material',
+      enabled = false,
+      priority = 1000,
       config = function()
           vim.o.background = "dark"
           vim.g.gruvbox_material_background = "hard"
+          vim.cmd.colorscheme 'gruvbox-material'
       end,
   }
+
+  -- neo-tree: Directory plugin
+  -- First, disable legacy commands
+  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1]])
+
+  use {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch="v2.x",
+      requires = {
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons",
+          "MunifTanjim/nui.nvim",
+      }
+  }
+
 end)
