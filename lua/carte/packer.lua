@@ -40,13 +40,6 @@ return require('packer').startup(function(use)
 	  }
   }
 
-  -- Lualine: Prettier file info at the bottom
-  use {
-      "nvim-lualine/lualine.nvim",
-      requires = { "nvim-tree/nvim-web-devicons", opt = true }
-  }
-
-  -- folke/trouble: Diagnostics
   use {
       "nvim-neo-tree/neo-tree.nvim",
       branch = "v2.x",

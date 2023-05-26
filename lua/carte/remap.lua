@@ -24,7 +24,6 @@ vim.keymap.set("n", "<leader>-", ":res -10<CR>")
 vim.keymap.set("n", "<leader>v=", ":vertical resize +10<CR>")
 vim.keymap.set("n", "<leader>v-", ":vertical resize -10<CR>")
 
-
 -- Visual Mode Remaps
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
