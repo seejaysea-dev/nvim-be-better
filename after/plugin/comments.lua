@@ -1,18 +1,11 @@
+-- NOTE: TodoComments works together with Trouble: https://github.com/folke/trouble.nvim
 require("todo-comments").setup {
-    keywords = {
-        TODO = { icon = " ", color = "info" },
-        HACK = { icon = " ", color = "warning" },
-        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+    highlight = {
+        before = "bg",
+        after = "bg",
     },
-    colors = {
-        error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
-        warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
-        info = { "DiagnosticInfo", "#2563EB" },
-        hint = { "DiagnosticHint", "#10B981" },
-        default = { "Identifier", "#7C3AED" },
-        test = { "Identifier", "#FF00FF" },
-    }
 }
 
 -- todo-comments keymaps
-
+-- vim.keymap.set("n", "<leader>xt", ":TodoTrouble<CR>")
+-- vim.keymap.set("n", "<leader>xc", ":TodoTrouble keywords=TODO,FIX,WARN<CR>")
