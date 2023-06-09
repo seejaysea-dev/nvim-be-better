@@ -40,6 +40,10 @@ return require('packer').startup(function(use)
 	  }
   }
 
+  -- neo-tree: Directory plugin
+  -- First, disable legacy commands
+  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1]])
+
   use {
       "nvim-neo-tree/neo-tree.nvim",
       branch = "v2.x",
@@ -50,7 +54,12 @@ return require('packer').startup(function(use)
       }
   }
 
-  -- Comment utility (TODO)
+  -- Trouble
+  use {
+      "folke/trouble.nvim"
+  }
+
+  -- Comment utility 
   use {
       "folke/todo-comments.nvim"
   }
@@ -83,18 +92,5 @@ return require('packer').startup(function(use)
       end,
   }
 
-  -- neo-tree: Directory plugin
-  -- First, disable legacy commands
-  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1]])
-
-  use {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch="v2.x",
-      requires = {
-          "nvim-lua/plenary.nvim",
-          "nvim-tree/nvim-web-devicons",
-          "MunifTanjim/nui.nvim",
-      }
-  }
 
 end)
