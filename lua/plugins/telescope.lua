@@ -1,6 +1,23 @@
 return {
   "nvim-telescope/telescope.nvim",
-  keys = {},
+
+  dependencies = {
+    "nvim-lua/plenary.nvim"
+  },
+  keys = {
+    {
+      "<C-p>",
+      "<cmd>Telescope git_files<cr>" -- HACK: This is easier
+    },
+    {
+      "<leader>pf",
+      "<cmd>Telescope find_files<cr>" -- HACK: This is easier
+    },
+    {
+      "<leader>ps",
+      "<cmd>Telescope live_grep<cr>" -- HACK: This is easier
+    },
+  },
   opts = {
     defaults = {
       layout_strategy = "horizontal",
@@ -9,4 +26,8 @@ return {
       winblend = 0,
     },
   },
+
+  config = function()
+    require("telescope")
+  end
 }
