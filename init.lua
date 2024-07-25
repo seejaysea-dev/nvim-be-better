@@ -4,4 +4,4 @@ require("config.lazy")
 require("config.lazybase")
 
 -- Force load the after directory
-require("after")
+-- require("after")
