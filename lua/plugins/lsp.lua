@@ -44,6 +44,9 @@ return {
         "shfmt",
         "csharpier",
         "netcoredbg",
+        "prettier",
+        "markdownlint-cli2",
+        "markdown-toc",
       },
     },
   },
@@ -71,7 +74,7 @@ return {
           require("telescopt.builtin").lsp_definitions({ reuse_win = true })
         end,
         desc = "Goto Definition",
-        has = "definition",
+        -- has = "definition",
       },
       {
         "gr",
@@ -189,6 +192,7 @@ return {
             organize_imports_on_format = true,
             enable_import_completion = true,
           },
+          marksman = {},
         },
         -- you can do any additional lsp server setup here
         -- return true if you don't want this server to be setup with lspconfig

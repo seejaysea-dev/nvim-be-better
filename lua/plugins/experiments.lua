@@ -113,5 +113,19 @@ return {
       },
     },
   },
+  -- Extra linting plugin? Move to format.lua after evaluation
+  {
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        markdown = { "markdownlint-cli2" },
+      }
+    },
+    config = function(_, opts)
+      -- TODO: Config nvim-lint
+    end,
+  },
   -- TODO: Try [fzf-lua](https://github.com/ibhagwan/fzf-lua) compared to telescope.
 }
