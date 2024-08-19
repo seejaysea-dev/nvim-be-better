@@ -11,6 +11,8 @@ return {
             },
         },
     },
+    -- git signs highlights text that has changed since the last
+    -- git commit
     {
         "lewis6991/gitsigns.nvim",
         event = "VeryLazy",
