@@ -56,6 +56,7 @@ return {
       "mason.nvim",
       { "hrsh7th/cmp-nvim-lsp" },
       { "williamboman/mason-lspconfig.nvim", config = function() end },
+      { "nvim-telescope/telescope.nvim" },
     },
     keys = {
       {
@@ -63,6 +64,36 @@ return {
         "<cmd>LspInfo<cr>",
         desc = "Lsp Info",
       },
+      -- integrations with telescope.nvim, see plugins/telescope.lua
+      {
+        "gd",
+        function()
+          require("telescopt.builtin").lsp_definitions({ reuse_win = true })
+        end,
+        desc = "Goto Definition",
+        has = "definition",
+      },
+      {
+        "gr",
+        "<cmd>Telescope lsp_references<cr>",
+        desc = "References",
+        nowait = true,
+      },
+      {
+        "gI",
+        function()
+          require("telescope.builtin").lsp_implementations({ reuse_win = true })
+        end,
+        desc = "Goto Implementation",
+      },
+      {
+        "gy",
+        function()
+          require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
+        end,
+        desc = "Goto T[y]pe Definition",
+      },
+      -- end: Telescope integration
     },
     opts = function()
       ---@class PluginLspOpts
