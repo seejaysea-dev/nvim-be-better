@@ -1,10 +1,5 @@
 -- NOTE: Mason and Treesitter custom config
--- Base Treesitter config. Extra options in language specific files
-
 return {
-  -- LazyVim contains extra settings for typescript and omnisharp
-  -- { import = "lazyvim.plugins.extras.lang.typescript" },
-  -- { import = "lazyvim.plugins.extras.lang.omnisharp" },
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -36,6 +31,10 @@ return {
         "luap",
         "vim",
         "vimdoc",
+        "javascript",
+        "jsdoc",
+        "tsx",
+        "typescript",
       },
     },
     init = function(plugins)

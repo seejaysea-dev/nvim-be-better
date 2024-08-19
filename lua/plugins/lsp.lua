@@ -1,4 +1,3 @@
--- In this file I am setting up Lua LSP because I will always want that when managing neovim
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -143,11 +142,6 @@ return {
         ---@type lspconfig.options
         servers = {
           lua_ls = {
-            -- mason = false, -- set to false if you don't want this server to be installed with mason
-            -- Use this to add any additional keymaps
-            -- for specific lsp servers
-            -- ---@type LazyKeysSpec[]
-            -- keys = {},
             settings = {
               Lua = {
                 workspace = {
@@ -179,6 +173,7 @@ return {
                 return require("omnisharp_extended").handler(...)
               end,
             },
+            ---@type LazyKeysSpec[]
             keys = {
               {
                 "gd",
@@ -193,6 +188,48 @@ return {
             enable_import_completion = true,
           },
           marksman = {},
+          tsserver = {
+            enabled = false,
+          },
+          vtsls = {
+            filetypes = {
+              "javascript",
+              "javascriptreact",
+              "javascript.jsx",
+              "typescript",
+              "typescriptreact",
+              "typescript.jsx",
+            },
+            -- explicitly add filetypes so we can extend them(?) This is stolen from [lazyvim](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/typescript.lua)
+            settings = {
+              complete_function_calls = true,
+              vtsls = {
+                enableMoveToFileCodeAction = true,
+                autoUseWorkspaceTsdk = true,
+                experimental = {
+                  completion = {
+                    enableServerSideFuzzyMatch = true,
+                  },
+                },
+              },
+              typescript = {
+                updateImportsOnFileMove = { enabled = "always" },
+                suggest = {
+                  completeFunctionCalls = true,
+                },
+                inlayHints = {
+                  enumMemberValues = { enabled = true },
+                  functionLikeReturnTypes = { enabled = true },
+                  parameterNames = { enabled = "literals" },
+                  parameterTypes = { enabled = true },
+                  propertyDeclarationTypes = { enabled = true },
+                  variableTypes = { enabled = false },
+                },
+              },
+            },
+            -- TODO: Convert LazyVim keys to something usable in my setup.
+            keys = {},
+          },
         },
         -- you can do any additional lsp server setup here
         -- return true if you don't want this server to be setup with lspconfig
@@ -210,8 +247,6 @@ return {
       return ret
     end,
     config = function()
-      -- local lsp_zero = require('lsp-zero')
-
       -- lsp_attach is where you enable features that only work
       -- if there is a language server active in the file
       local lsp_attach = function(client, bufnr)
@@ -229,12 +264,6 @@ return {
         vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
       end
 
-      -- lsp_zero.extend_lspconfig({
-      --   sign_text = true,
-      --   lsp_attach = lsp_attach,
-      --   capabilities = require('cmp_nvim_lsp').default_capabilities()
-      -- })
-
       require("mason-lspconfig").setup({
         ensure_installed = {},
         handlers = {
@@ -248,5 +277,5 @@ return {
     end,
   },
   { "L3MON4D3/LuaSnip" },
-  { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
+  { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true }, -- C# extended LSP
 }
