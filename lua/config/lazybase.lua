@@ -2,6 +2,7 @@
 require("lazy").setup({
   spec = {
     { import = "plugins" },
+    { import = "plugins.languages" },
   },
   install = { colorscheme = { "tokyonight" } },
   checker = { enabled = true }, -- automatically check for plugin updates

@@ -1,4 +1,4 @@
--- Use LSP zero because I am extra lazy
+-- In this file I am setting up Lua LSP because I will always want that when managing neovim
 return {
   {
     "hrsh7th/nvim-cmp",
