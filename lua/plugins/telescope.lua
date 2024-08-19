@@ -26,8 +26,7 @@ return {
       winblend = 0,
     },
   },
-
-  config = function()
-    require("telescope")
+  init = function()
+      require("telescope").setup({})
   end
 }

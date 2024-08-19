@@ -26,9 +26,9 @@ return {
       use_diagnostic_signs = true,
     },
     enabled = true,
-    config = function()
-      require("trouble")
-    end
+    init = function()
+        require("trouble").setup({})
+    end,
   },
   {
     "folke/todo-comments.nvim",
@@ -46,7 +46,7 @@ return {
       },
     },
     init = function()
-      require("todo-comments")
-    end
+        require("todo-comments").setup({})
+    end,
   },
 }
