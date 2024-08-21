@@ -1,281 +1,152 @@
 return {
   {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    dependencies = {
-      { "L3MON4D3/LuaSnip" },
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v4.x',
+    lazy = true,
+    config = false,
+  },
+  {
+    'williamboman/mason.nvim',
+    lazy = false,
+    cmd = "Mason",
+    build = ":MasonUpdate",
+    keys = {
+      {
+        "<leader>cm",
+        "<cmd>Mason<cr>",
+        desc = "Mason"
+      },
     },
-    config = function()
-      local cmp = require("cmp")
+    config = true,
+  },
+  {
+    'williamboman/mason-lspconfig.nvim',
+    opts = {
+      ensure_installed = {
+        "lua_ls",
+        "tsserver",
+        "omnisharp",
+        "clangd",
+        "powershell_es",
+        "ruff_lsp",
+        "rust_analyzer",
+      },
+      handlers = {
+        lua_ls = function()
+          require('lspconfig').lua_ls.setup({
+            capabilities = lsp_capabilities,
+            settings = {
+              Lua = {
+                runtime = {
+                  version = 'LuaJIT'
+                },
+                diagnostics = {
+                  globals = { 'vim' },
+                },
+                workspace = {
+                  library = {
+                    vim.env.VIMRUNTIME,
+                  }
+                }
+              }
+            }
+          })
+        end,
+        function(server_name)
+          require('lspconfig')[server_name].setup({ capabilities = lsp_capabilities, })
+        end,
+      },
+    },
+  },
+  -- Autocompletion
+  {
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
+    dependencies = {
+      {
+        'L3MON4D3/LuaSnip',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+      },
+    },
+    opts = function()
+      local cmp = require('cmp')
 
-      cmp.setup({
+      return {
         sources = {
-          { name = "nvim_lsp" },
+          { name = 'path' },
+          { name = 'nvim_lsp' },
+          { name = 'luasnip', keyword_length = 2 },
+          { name = 'buffer',  keyword_length = 3 },
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-d>"] = cmp.mapping.scroll_docs(4),
+          ['<Enter>'] = cmp.mapping.confirm({ select = true }),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-d>'] = cmp.mapping.scroll_docs(4),
         }),
         snippet = {
           expand = function(args)
             vim.snippet.expand(args.body)
           end,
         },
-      })
-    end,
-  },
-  {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    keys = {
-      {
-        "<leader>cm",
-        "<cmd>Mason<cr>",
-        desc = "Mason",
-      },
-    },
-    build = ":MasonUpdate",
-    opts_extend = { "ensure_installed" },
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shfmt",
-        "csharpier",
-        "netcoredbg",
-        "prettier",
-        "markdownlint-cli2",
-        "markdown-toc",
-      },
-    },
-  },
-  { "williamboman/mason-lspconfig.nvim" },
-  {
-    "neovim/nvim-lspconfig",
-    cmd = "LspInfo",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "mason.nvim",
-      { "hrsh7th/cmp-nvim-lsp" },
-      { "williamboman/mason-lspconfig.nvim", config = function() end },
-      { "nvim-telescope/telescope.nvim" },
-    },
-    keys = {
-      {
-        "<leader>cl",
-        "<cmd>LspInfo<cr>",
-        desc = "Lsp Info",
-      },
-      -- integrations with telescope.nvim, see plugins/telescope.lua
-      {
-        "gd",
-        function()
-          require("telescopt.builtin").lsp_definitions({ reuse_win = true })
-        end,
-        desc = "Goto Definition",
-        -- has = "definition",
-      },
-      {
-        "gr",
-        "<cmd>Telescope lsp_references<cr>",
-        desc = "References",
-        nowait = true,
-      },
-      {
-        "gI",
-        function()
-          require("telescope.builtin").lsp_implementations({ reuse_win = true })
-        end,
-        desc = "Goto Implementation",
-      },
-      {
-        "gy",
-        function()
-          require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
-        end,
-        desc = "Goto T[y]pe Definition",
-      },
-      -- end: Telescope integration
-    },
-    opts = function()
-      ---@class PluginLspOpts
-      local ret = {
-        -- options for vim.diagnostic.config()
-        ---@type vim.diagnostic.Opts
-        diagnostics = {
-          underline = true,
-          update_in_insert = false,
-          virtual_text = {
-            spacing = 4,
-            source = "if_many",
-            prefix = "●",
-            -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-            -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-            -- prefix = "icons",
-          },
-          severity_sort = true,
-        },
-        -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
-        -- Be aware that you also will need to properly configure your LSP server to
-        -- provide the inlay hints.
-        inlay_hints = {
-          enabled = true,
-        },
-        -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
-        -- Be aware that you also will need to properly configure your LSP server to
-        -- provide the code lenses.
-        codelens = {
-          enabled = false,
-        },
-        -- Enable lsp cursor word highlighting
-        document_highlight = {
-          enabled = true,
-        },
-        -- options for vim.lsp.buf.format
-        -- `bufnr` and `filter` is handled by the LazyVim formatter,
-        -- but can be also overridden when specified
-        format = {
-          formatting_options = nil,
-          timeout_ms = nil,
-        },
-        -- LSP Server Settings
-        ---@type lspconfig.options
-        servers = {
-          lua_ls = {
-            settings = {
-              Lua = {
-                workspace = {
-                  checkThirdParty = false,
-                },
-                codeLens = {
-                  enable = true,
-                },
-                completion = {
-                  callSnippet = "Replace",
-                },
-                doc = {
-                  privateName = { "^_" },
-                },
-                hint = {
-                  enable = true,
-                  setType = false,
-                  paramType = true,
-                  paramName = "Disable",
-                  semicolon = "Disable",
-                  arrayIndex = "Disable",
-                },
-              },
-            },
-          },
-          omnisharp = {
-            handlers = {
-              ["textDocument/definition"] = function(...)
-                return require("omnisharp_extended").handler(...)
-              end,
-            },
-            ---@type LazyKeysSpec[]
-            keys = {
-              {
-                "gd",
-                function()
-                  require("omnisharp_extended").telescope_lsp_definitions()
-                end,
-                desc = "Goto Definition",
-              },
-            },
-            enable_roslyn_analyzers = true,
-            organize_imports_on_format = true,
-            enable_import_completion = true,
-          },
-          marksman = {},
-          tsserver = {
-            enabled = false,
-          },
-          vtsls = {
-            filetypes = {
-              "javascript",
-              "javascriptreact",
-              "javascript.jsx",
-              "typescript",
-              "typescriptreact",
-              "typescript.jsx",
-            },
-            -- explicitly add filetypes so we can extend them(?) This is stolen from [lazyvim](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/extras/lang/typescript.lua)
-            settings = {
-              complete_function_calls = true,
-              vtsls = {
-                enableMoveToFileCodeAction = true,
-                autoUseWorkspaceTsdk = true,
-                experimental = {
-                  completion = {
-                    enableServerSideFuzzyMatch = true,
-                  },
-                },
-              },
-              typescript = {
-                updateImportsOnFileMove = { enabled = "always" },
-                suggest = {
-                  completeFunctionCalls = true,
-                },
-                inlayHints = {
-                  enumMemberValues = { enabled = true },
-                  functionLikeReturnTypes = { enabled = true },
-                  parameterNames = { enabled = "literals" },
-                  parameterTypes = { enabled = true },
-                  propertyDeclarationTypes = { enabled = true },
-                  variableTypes = { enabled = false },
-                },
-              },
-            },
-            -- TODO: Convert LazyVim keys to something usable in my setup.
-            keys = {},
-          },
-        },
-        -- you can do any additional lsp server setup here
-        -- return true if you don't want this server to be setup with lspconfig
-        ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-        setup = {
-          -- example to setup with typescript.nvim
-          -- tsserver = function(_, opts)
-          --   require("typescript").setup({ server = opts })
-          --   return true
-          -- end,
-          -- Specify * to use this function as a fallback for any server
-          -- ["*"] = function(server, opts) end,
-        },
       }
-      return ret
     end,
+    config = function(_, opts)
+      require('cmp').setup(opts)
+    end
+  },
+
+  -- LSP
+  {
+    'neovim/nvim-lspconfig',
+    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
+    },
     config = function()
+      local lsp_zero = require('lsp-zero')
+
       -- lsp_attach is where you enable features that only work
       -- if there is a language server active in the file
       local lsp_attach = function(client, bufnr)
         local opts = { buffer = bufnr }
 
-        vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-        vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
-        vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-        vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
-        vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-        vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
-        vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-        vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-        vim.keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
-        vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+        vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+        vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+        vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+        vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+        vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
       end
 
-      require("mason-lspconfig").setup({
-        ensure_installed = {},
-        handlers = {
-          -- this first function is the "default handler"
-          -- it applies to every language server without a "custom handler"
-          function(server_name)
-            require("lspconfig")[server_name].setup({})
-          end,
-        },
+      lsp_zero.extend_lspconfig({
+        sign_text = true,
+        lsp_attach = lsp_attach,
+        float_border = 'rounded',
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
       })
-    end,
-  },
-  { "L3MON4D3/LuaSnip" },
-  { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true }, -- C# extended LSP
+
+      lsp_zero.set_sign_icons({
+        error = '✘',
+        warn = '▲',
+        hint = '⚑',
+        info = '»',
+      })
+
+      require('mason-lspconfig').setup({})
+    end
+  }
 }
