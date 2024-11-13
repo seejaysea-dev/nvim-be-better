@@ -2,6 +2,8 @@ vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader><leader>", vim.cmd.so)
+vim.keymap.set("n", "<leader>ww", "<cmd>w<cr>")
+vim.keymap.set("n", "<leader>qw", "<cmd>q<cr>")
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>")
 
 -- Normal Mode Remaps
@@ -41,3 +43,7 @@ vim.keymap.set("n", "<S-l>", vim.cmd.bnext)
 -- Clear search with <esc>
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr><esc>")
 vim.keymap.set("i", "<esc>", "<cmd>noh<cr><esc>")
+
+-- AST exploration
+vim.keymap.set("n", "<leader>asg", "<cmd>Inspect<cr>")
+vim.keymap.set("n", "<leader>ast", "<cmd>InspectTree<cr>")
