@@ -1,6 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
-
+  version = false, -- telescope only did one release. Using HEAD
   dependencies = {
     "nvim-lua/plenary.nvim"
   },
@@ -26,8 +26,7 @@ return {
       winblend = 0,
     },
   },
-
-  config = function()
-    require("telescope")
+  init = function()
+      require("telescope").setup({})
   end
 }
