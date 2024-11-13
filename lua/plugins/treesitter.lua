@@ -35,6 +35,7 @@ return {
         "jsdoc",
         "tsx",
         "typescript",
+        "json5",
       },
     },
     init = function(plugins)
