@@ -2,6 +2,7 @@ return {
   -- ZenMode: Get rid of distractions
   {
     "folke/zen-mode.nvim",
+    -- TODO: Redefined keyMaps to fit structure.
     keys = {
       {
         "<leader>zz",
@@ -60,7 +61,7 @@ return {
     "mbbill/undotree",
 
     config = function()
-      vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+      vim.keymap.set("n", "<leader>zu", vim.cmd.UndotreeToggle)
     end,
   },
   -- Flash, enhancing builtin search functions.
@@ -70,6 +71,7 @@ return {
     event = "VeryLazy",
     --@type Flash.Config
     opts = {},
+    -- TODO: Redefined keyMaps to fit structure.
     keys = {
       {
         "s",
@@ -112,20 +114,6 @@ return {
         desc = "Toggle Flash Search",
       },
     },
-  },
-  -- Extra linting plugin? Move to format.lua after evaluation
-  {
-    "mfussenegger/nvim-lint",
-    event = "VeryLazy",
-    optional = true,
-    opts = {
-      linters_by_ft = {
-        markdown = { "markdownlint-cli2" },
-      }
-    },
-    config = function(_, opts)
-      -- TODO: Config nvim-lint
-    end,
   },
   -- TODO: Try [fzf-lua](https://github.com/ibhagwan/fzf-lua) compared to telescope.
 }

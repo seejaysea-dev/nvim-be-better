@@ -10,17 +10,21 @@ return {
     -- TODO: Lookup conform configuration
     "stevearc/conform.nvim",
     dependencies = {
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
     },
-    event = { "BufWritePre" },
-    cmd = { "ConformInfo" },
+    event = {
+      "BufWritePre",
+    },
+    cmd = {
+      "ConformInfo",
+    },
     keys = {
       {
         -- Trigger format manually
-        "<leader>ff",
+        "<leader>cf",
         function()
-          require("conform").format({ async = true })
+          require("conform").format({ async = true, timeout_ms = 3000 })
         end,
         desc = "Format current buffer",
       },
@@ -34,19 +38,17 @@ return {
         cs = { "csharpier" },
       },
       formatters = {
-        csharpier = {
-          command = "dotnet-csharpier",
-          args = { "--write-stdout" },
-        },
       },
       -- Define default format options
       default_format_opts = {
         lsp_format = "fallback",
       },
       -- Setup format on save. For now manual format only
-      format_on_save = {
-          timeout_ms = 500,
-      },
+      format_on_save = false,
+      -- format_on_save = {
+      --   timeout_ms = 500,
+      -- },
     },
+    config = M.setup,
   },
 }
