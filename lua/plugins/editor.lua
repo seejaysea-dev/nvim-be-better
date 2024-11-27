@@ -10,6 +10,8 @@ return {
           -- TODO: Redefined keyMaps to fit structure.
           { "<leader><tab>", group = "tabs" },
           { "<leader>c", group = "code" },
+          { "<leader>cr", group = "code references" },
+          { "<leader>ch", group = "code help" },
           { "<leader>f", group = "file/find" },
           { "<leader>g", group = "git" },
           { "<leader>gh", group = "hunks" },

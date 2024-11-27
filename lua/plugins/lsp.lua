@@ -41,7 +41,6 @@ return {
         "lua_ls",
         "ts_ls",
         "clangd",
-        "powershell_es",
         "ruff",
         "jsonls",
       },
@@ -49,7 +48,7 @@ return {
       handlers = {
         function(server_name) -- Default handler
           local cmp_lsp = require("cmp_nvim_lsp")
-          local capabilities = vim.tbl_deep_extend(
+          capabilities = vim.tbl_deep_extend(
             "force",
             {},
             vim.lsp.protocol.make_client_capabilities(),
@@ -78,21 +77,6 @@ return {
             },
           })
         end, -- End Lua settings
-        powershell_es = function()
-          local bundle_path = NvimDataDirectory .. "/mason/packages/powershell-editor-services"
-
-          require("lspconfig").powershell_es.setup({
-            bundle_path = bundle_path,
-            capabilities = capabilities,
-            settings = {
-              powershell = {
-                codeFormatting = {
-                  Preset = "OTBS",
-                },
-              },
-            },
-          })
-        end, -- End powershell_es settings
       },
     },
   },

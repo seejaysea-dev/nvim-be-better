@@ -24,12 +24,14 @@ autocmd("LspAttach", {
   group = CarteAuGroup,
   callback = function(e)
     local bfnmbr = e.buff
-    vim.keymap.set("n", "?", vim.lsp.buf.signature_help, { buffer = bfnmbr, desc = "Signature Help" })
+    vim.keymap.set("n", "<leader>chh", vim.lsp.buf.hover, { buffer = bfnmbr, desc = "LSP Hover" })
+    vim.keymap.set("n", "<leader>chs", vim.lsp.buf.signature_help, { buffer = bfnmbr, desc = "Signature Help" })
+    vim.keymap.set("n", "?", "<leader>chh", { remap = true, buffer = bfnmbr, desc = "Signature Help" })
+    vim.keymap.set("n", "K", "<leader>chh>", { remap = true, buffer = bfnmbr, desc = "LSP Hover" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bfnmbr, desc = "Goto Declaration" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bfnmbr, desc = "Goto Definition" })
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bfnmbr, desc = "Goto Implementation" })
     vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bfnmbr, desc = "Open Refs" })
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bfnmbr, desc = "LSP Hover" })
     vim.keymap.set("n", "<leader>cf", function()
       vim.lsp.buf.format({ async = true })
     end, { buffer = bfnmbr, desc = "Format current file" })
