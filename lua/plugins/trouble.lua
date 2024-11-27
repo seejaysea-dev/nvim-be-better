@@ -14,6 +14,7 @@ return {
   {
     "folke/trouble.nvim",
     cmd = { "Trouble" },
+    -- TODO: Redefined keyMaps to fit structure.
     keys = {
       {
         "<leader>xx",
@@ -52,6 +53,7 @@ return {
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
+    -- TODO: Redefined keyMaps to fit structure.
     keys = {
       {
         "<leader>xT",

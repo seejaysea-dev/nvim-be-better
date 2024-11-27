@@ -2,8 +2,9 @@
 require("lazy").setup({
   spec = {
     { import = "plugins" },
+    { import = "work.plugins" },
   },
-  change_detection = { notify = true },
+  change_detection = { notify = false },
   install = { colorscheme = { "tokyonight" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {

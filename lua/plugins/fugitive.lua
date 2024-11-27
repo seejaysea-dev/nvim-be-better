@@ -1,8 +1,14 @@
 return {
   {
     "tpope/vim-fugitive",
+    keys = {
+      {
+        "<leader>gs",
+        vim.cmd.Git,
+        desc = "Open GitFugitive panel"
+      }
+    },
     config = function()
-      vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
     end,
   },
 }

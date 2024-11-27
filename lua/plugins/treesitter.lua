@@ -7,12 +7,25 @@ return {
     build = ":TSUpdate",
     event = "VeryLazy",
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+    -- TODO: Redefined keyMaps to fit structure.
     keys = {
       {
-        "<leader>tsu",
+        "<leader>tu",
         "<cmd>TSUpdate<cr>",
         desc = "Run TSUPdate",
       },
+      -- AST exploration
+      -- Now built into NeoVim
+      {
+        "<leader>tt",
+        "<cmd>InspectTree",
+        desc = "Show AST"
+      },
+      {
+        "<leader>tg",
+        "<cmd>Inspect<cr>",
+        desc = "Show AST Group"
+      }
     },
     opts = {
       sync_install = false,
@@ -24,7 +37,6 @@ return {
       indent = { enable = true },
       ensure_installed = {
         "bash",
-        "c_sharp",
         "html",
         "lua",
         "luadoc",
