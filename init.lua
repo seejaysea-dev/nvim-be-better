@@ -1,6 +1,5 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-local function exists(file)
-  local ok, err, code = os.rename(file, file)
+function FileExists(file)
+  local ok, err, _ = os.rename(file, file)
   if ok and (err ~= 13) then
     return true
   else
@@ -9,13 +8,7 @@ local function exists(file)
 end
 
 require("carte")
-require("config.lazy")
-require("config.lazybase")
-
--- If there is my work directory, load it
-if exists(NvimDirectory .. "/lua/work/init.lua") then
-  require("work")
-end
+require("work")
 
 local CarteAuGroup = vim.api.nvim_create_augroup("Carte", {})
 local autocmd = vim.api.nvim_create_autocmd
@@ -27,7 +20,7 @@ autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>chh", vim.lsp.buf.hover, { buffer = bfnmbr, desc = "LSP Hover" })
     vim.keymap.set("n", "<leader>chs", vim.lsp.buf.signature_help, { buffer = bfnmbr, desc = "Signature Help" })
     vim.keymap.set("n", "?", "<leader>chh", { remap = true, buffer = bfnmbr, desc = "Signature Help" })
-    vim.keymap.set("n", "K", "<leader>chh>", { remap = true, buffer = bfnmbr, desc = "LSP Hover" })
+    vim.keymap.set("n", "K", "<leader>chs", { remap = true, buffer = bfnmbr, desc = "LSP Hover" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bfnmbr, desc = "Goto Declaration" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bfnmbr, desc = "Goto Definition" })
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bfnmbr, desc = "Goto Implementation" })
@@ -39,7 +32,7 @@ autocmd("LspAttach", {
   end,
 })
 
-ColorMyPencils("catppuccin")
+ColorMyPencils(Carte.colors.name)
 
 local stats = vim.uv.fs_stat(vim.fn.argv(0))
 

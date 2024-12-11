@@ -5,7 +5,6 @@ return {
       "echasnovski/mini.bufremove",
     },
     event = "VeryLazy",
-    -- TODO: Redefined keyMaps to fit structure.
     keys = {
       { "<S-h>",      "<cmd>BufferLineCyclePrev<cr>",     desc = "Prev Buffer" },
       { "<S-l>",      "<cmd>BufferLineCycleNext<cr>",     desc = "Next Buffer" },
@@ -35,6 +34,15 @@ return {
     config = function(_, opts)
       require("bufferline").setup(opts)
     end,
+  },
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      timeout = 250,
+      render = "compact",
+      stages = "slide",
+      fps = 60,
+    },
   },
   {
     "folke/noice.nvim",
@@ -69,7 +77,6 @@ return {
         long_message_to_split = true,
       },
     },
-    -- TODO: Redefined keyMaps to fit structure.
     keys = {
       {
         "<leader>snl",

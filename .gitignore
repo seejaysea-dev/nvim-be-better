@@ -1,2 +1,17 @@
-*_work.lua
-*/work/*
+# LazyGit starting gitignore
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+
+lua/plugins/lsp/*
+!lua/plugins/lsp/lsp.lua
+!lua/plugins/lsp/template.lua
+
+lua/work/*
+!lua/work/init.lua
+!lua/work/plugins/init.lua

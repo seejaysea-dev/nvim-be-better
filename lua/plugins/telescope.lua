@@ -34,23 +34,25 @@ end
 
 return {
   "nvim-telescope/telescope.nvim",
+  lazy = false,
   tag = "0.1.8",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
-  -- TODO: Redefined keyMaps to fit structure.
+  dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     {
+      -- HACK: This is easier
       "<C-p>",
-      "<cmd>Telescope git_files<cr>", -- HACK: This is easier
+      "<cmd>Telescope git_files<cr>",
     },
     {
-      "<leader>ff",
-      "<cmd>Telescope find_files<cr>", -- HACK: This is easier
+      -- HACK: This is easier
+      "<leader>pf",
+      "<cmd>Telescope find_files<cr>",
     },
     {
-      "<leader>fg",
-      "<cmd>Telescope live_grep<cr>", -- HACK: This is easier
+      -- HACK: This is easier
+      "<leader>ps",
+      "<cmd>Telescope live_grep<cr>",
+      desc = "Telescope Grep"
     },
   },
   --@type telescope.Opts
@@ -64,7 +66,4 @@ return {
       winblend = 0,
     },
   },
-  init = function(_, opts)
-    require("telescope").setup(opts)
-  end,
 }

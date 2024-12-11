@@ -7,7 +7,6 @@ return {
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
   },
-  -- TODO: Redefined keyMaps to fit structure.
   keys = {
     {
       "<leader>fe",
@@ -64,7 +63,9 @@ return {
           ".DS_Store",
           "thumbs.db",
         },
-        never_show = {},
+        never_show = {
+          ".git"
+        },
       },
     },
     sources = { "filesystem", "buffers", "git_status" },
@@ -100,7 +101,7 @@ return {
       },
     },
   },
-  deactivate = function() vim.cmd([[Neotree close]]) end,
+  -- deactivate = function() vim.cmd([[Neotree close]]) end,
   init = function()
     vim.api.nvim_create_autocmd("BufEnter", {
       group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),

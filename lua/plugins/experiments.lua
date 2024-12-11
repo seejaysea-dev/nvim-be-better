@@ -1,8 +1,30 @@
 return {
+  -- Twilight: Paired with ZenMode to focus on coding.
+  {
+    "folke/twilight.nvim",
+    opts = {
+      expand = {
+        "function",
+        "method",
+        "table",
+        "if_statement",
+        "function_declaration",
+        "method_declaration",
+        "pair",
+      },
+    },
+    keys = {
+      {
+        "<leader>chf",
+        "<cmd>Twilight<cr>",
+        desc = "Toggle twilight",
+      },
+    }
+  },
   -- ZenMode: Get rid of distractions
   {
     "folke/zen-mode.nvim",
-    -- TODO: Redefined keyMaps to fit structure.
+    event = { "BufEnter" },
     keys = {
       {
         "<leader>zz",
@@ -18,60 +40,20 @@ return {
           vim.wo.wrap = false
           vim.wo.number = true
           vim.wo.rnu = true
-          ColorMyPencils()
+          ColorMyPencils(Carte.colors.name)
         end,
         desc = "Toggle ZenMode",
       },
     },
-    config = function()
-      vim.keymap.set("n", "<leader>zz", function()
-        require("zen-mode").setup({
-          window = {
-            width = 120,
-            options = {},
-          },
-        })
-
-        require("zen-mode").toggle()
-        vim.wo.wrap = false
-        vim.wo.number = true
-        vim.wo.rnu = true
-        ColorMyPencils()
-      end)
-
-      vim.keymap.set("n", "<leader>zZ", function()
-        require("zen-mode").setup({
-          window = {
-            width = 120,
-            options = {},
-          },
-        })
-
-        require("zen-mode").toggle()
-        vim.wo.wrap = false
-        vim.wo.number = false
-        vim.wo.rnu = true
-        vim.opt.colorcolumn = "0"
-        ColorMyPencils()
-      end)
-    end,
-  },
-  -- UndoTree
-  {
-    "mbbill/undotree",
-
-    config = function()
-      vim.keymap.set("n", "<leader>zu", vim.cmd.UndotreeToggle)
-    end,
   },
   -- Flash, enhancing builtin search functions.
   -- config stolen from [LazyVim](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/editor.lua)
   {
     "folke/flash.nvim",
     event = "VeryLazy",
+    enabled = false,
     --@type Flash.Config
     opts = {},
-    -- TODO: Redefined keyMaps to fit structure.
     keys = {
       {
         "s",
@@ -114,6 +96,27 @@ return {
         desc = "Toggle Flash Search",
       },
     },
+  },
+  -- LazyGit
+  {
+    "kdheepak/lazygit.nvim",
+    lazy = true,
+    cmd = {
+        "LazyGit",
+        "LazyGitConfig",
+        "LazyGitCurrentFile",
+        "LazyGitFilter",
+        "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+        { "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    }
   },
   -- TODO: Try [fzf-lua](https://github.com/ibhagwan/fzf-lua) compared to telescope.
 }

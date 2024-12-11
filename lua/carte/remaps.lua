@@ -20,31 +20,43 @@ vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without overwr
 vim.keymap.set("n", "<A-v>", "<C-v>")
 
 -- Move Lines
-vim.keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==")
-vim.keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==")
-vim.keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi")
-vim.keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi")
-vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv")
-vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv")
+vim.keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = ""})
+vim.keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = ""})
+vim.keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = ""})
+vim.keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = ""})
+vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = ""})
+vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = ""})
 
 -- Window movements
-vim.keymap.set("n", "<C-h>", "<C-w>h")
-vim.keymap.set("n", "<C-j>", "<C-w>j")
-vim.keymap.set("n", "<C-k>", "<C-w>k")
-vim.keymap.set("n", "<C-l>", "<C-w>l")
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = ""})
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = ""})
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = ""})
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = ""})
 
 -- Window Resize with Ctrl + arrows
-vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>")
-vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>")
-vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize +2<cr>")
-vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize -2<cr>")
+vim.keymap.set("n", "<C-A-k>", "<cmd>resize +2<cr>", { desc = ""})
+vim.keymap.set("n", "<C-A-j>", "<cmd>resize -2<cr>", { desc = ""})
+vim.keymap.set("n", "<C-A-h>", "<cmd>vertical resize +2<cr>", { desc = ""})
+vim.keymap.set("n", "<C-A-l>", "<cmd>vertical resize -2<cr>", { desc = ""})
 
 -- Buffer movements
-vim.keymap.set("n", "<S-h>", vim.cmd.bprevious)
-vim.keymap.set("n", "<S-l>", vim.cmd.bnext)
+vim.keymap.set("n", "<S-h>", vim.cmd.bprevious, { desc = ""})
+vim.keymap.set("n", "<S-l>", vim.cmd.bnext, { desc = ""})
 
 -- Clear search with <esc>
 vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Clear highlighting" })
 
 vim.keymap.set({ "n" }, "<C-f>", "/<c-r>0<cr>N", { desc = "Search for word under cursor" })
 vim.keymap.set({ "v" }, "<C-f>", "y/<c-r>0<cr>N", { desc = "Search for word under cursor" })
+
+
+vim.keymap.set(
+  "n",
+  "<leader>fn",
+  function()
+    local filename = BufferFileName()
+
+    print("Setting clipboard: "..filename)
+    vim.fn.setreg("+", filename)
+  end,
+  { desc = "Show current file name" })

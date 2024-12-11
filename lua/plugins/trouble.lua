@@ -1,5 +1,6 @@
 -- NOTE: TodoComments works together with Trouble: https://github.com/folke/trouble.nvim
 -- Available Comment Types
+
 -- FIX:  Example
 -- TODO: Example
 -- HACK: Example
@@ -14,7 +15,7 @@ return {
   {
     "folke/trouble.nvim",
     cmd = { "Trouble" },
-    -- TODO: Redefined keyMaps to fit structure.
+    event = { "BufEnter" },
     keys = {
       {
         "<leader>xx",
@@ -38,22 +39,17 @@ return {
       },
     },
     opts = {
-      use_diagnostic_signs = true,
       modes = {
         lsp = {
           position = "right",
         },
       },
     },
-    enabled = true,
-    init = function()
-      require("trouble").setup({})
-    end,
   },
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
-    -- TODO: Redefined keyMaps to fit structure.
+    event = { "BufEnter" },
     keys = {
       {
         "<leader>xT",
@@ -78,8 +74,5 @@ return {
         after = "bg",
       },
     },
-    init = function()
-      require("todo-comments").setup({})
-    end,
   },
 }
