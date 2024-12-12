@@ -93,12 +93,7 @@ return {
         expander_expanded = "",
         expander_highlight = "NeoTreeExpander",
       },
-      git_status = {
-        symbols = {
-          unstaged = "󰄱",
-          staged = "󰱒",
-        },
-      },
+      git_status = Carte.icons.git_status,
     },
   },
   -- deactivate = function() vim.cmd([[Neotree close]]) end,

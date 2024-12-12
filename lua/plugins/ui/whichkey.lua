@@ -44,76 +44,9 @@ return {
             end,
           },
           -- better descriptions
-          { "gx", desc = "Open with system app" },
+          { "gx",         desc = "Open with system app" },
         },
       },
     },
   },
-  {
-    "echasnovski/mini.pairs",
-    event = "VeryLazy",
-    opts = {},
-    keys = {
-      {
-        "<leader>cp",
-        function()
-          vim.g.minipairs_disable = not vim.g.minipairs_disable
-        end,
-        desc = "Toggle Auto Pairs",
-      },
-    },
-  },
-  {
-    "RRethy/vim-illuminate",
-    event = { "BufEnter" },
-    keys = {
-      {
-        "<leader>crn",
-        function()
-          require("illuminate").goto_next_reference(false)
-        end,
-        desc = "Next reference",
-      },
-      {
-        "<leader>crp",
-        function()
-          require("illuminate").goto_prev_reference(false)
-        end,
-        desc = "Prev reference",
-      },
-      {
-        "]]",
-        "<leader>crn",
-        remap = true,
-        desc = "Next reference",
-      },
-      {
-        "[[",
-        "<leader>crp",
-        remap = true,
-        desc = "Prev reference",
-      },
-      {
-        "<leader>ui",
-        function()
-          require("illuminate").toggle_buf()
-        end,
-        desc = "Toggle vim-illiminate in current buffer",
-      },
-    },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
-    end,
-  },
-  {
-    -- Cursor coloring
-    "mawkler/modicator.nvim",
-    dependencies = Carte.colors.plugin,
-    opts = { show_warnings = true },
-    init = function()
-      vim.o.cursorline = true
-      vim.o.number = true
-      vim.o.termguicolors = true
-    end,
-  }
 }

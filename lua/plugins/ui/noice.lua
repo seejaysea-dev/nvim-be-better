@@ -1,54 +1,13 @@
 return {
   {
-    "akinsho/bufferline.nvim",
-    dependencies = {
-      "echasnovski/mini.bufremove",
-    },
-    event = "VeryLazy",
-    keys = {
-      { "<S-h>",      "<cmd>BufferLineCyclePrev<cr>",     desc = "Prev Buffer" },
-      { "<S-l>",      "<cmd>BufferLineCycleNext<cr>",     desc = "Next Buffer" },
-      { "<C-q>",      "<cmd>bp<bar>sp<bar>bn<bar>bd<cr>", desc = "Close Current Buffer" }, -- https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window
-      { "<leader>qp", "<C-q>",                            desc = "Close current buffer", remap = true },
-    },
-    opts = {
-      options = {
-        close_command = function(n)
-          require("mini.bufremove").delete(n, false)
-        end,
-        right_mouse_command = function(n)
-          require("mini.bufremove").delete(n, false)
-        end,
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = false,
-        offsets = {
-          {
-            filetype = "neo-tree",
-            text = "Neo-tree",
-            highlight = "Directory",
-            text_align = "left",
-          },
-        },
-      },
-    },
-    config = function(_, opts)
-      require("bufferline").setup(opts)
-    end,
-  },
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      timeout = 250,
-      render = "compact",
-      stages = "slide",
-      fps = 60,
-    },
-  },
-  {
     "folke/noice.nvim",
     event = "VeryLazy",
     dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     },
     opts = {

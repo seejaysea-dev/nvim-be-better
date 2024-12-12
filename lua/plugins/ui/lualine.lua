@@ -1,7 +1,17 @@
+local recordingStatus = function()
+  local rec_register = vim.fn.reg_recording()
+
+  if rec_register == "" then
+    return ""
+  else
+    return "Recording @" .. rec_register
+  end
+end
+
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
-    "nvim-tree/nvim-web-devicons"
+    "nvim-tree/nvim-web-devicons",
   },
   keys = {
     {
@@ -45,6 +55,9 @@ return {
           { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
         },
         lualine_x = {
+          { recordingStatus, padding = { left = 1, right = 1 }, separator = " " },
+        },
+        lualine_y = {
           {
             "diff",
             symbols = {
@@ -64,10 +77,8 @@ return {
             end,
           },
         },
-        lualine_y = {
-        },
         lualine_z = {
-          { "progress", separator = " ",                  padding = { left = 1, right = 0 } },
+          { "progress", padding = { left = 1, right = 0 }, separator = " " },
           { "location", padding = { left = 0, right = 1 } },
         },
       },

@@ -22,9 +22,12 @@ vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
 -- Base lazy setup
 require("lazy").setup({
   spec = {
-    { import = "plugins" },
-    { import = "work.plugins" }, -- Work Specific setups
-    { import = "plugins.lsp" },  -- LSP setup
+    { import = "plugins.ui" },     -- NeoVim UI setup
+    { import = "plugins.coding" }, -- Coding plugins
+    { import = "plugins.lsp" },    -- LSP setup
+    { import = "plugins.editor" }, -- Editor plugins
+    { import = "plugins" },        -- Other plugins
+    { import = "work.plugins" },   -- Work Specific setups
   },
   change_detection = {
     enabled = true,
