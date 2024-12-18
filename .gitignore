@@ -1,4 +1,4 @@
-# LazyGit starting gitignore
+# LazyVim starting gitignore
 tt.*
 .tests
 doc/tags
