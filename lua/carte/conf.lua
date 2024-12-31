@@ -73,15 +73,3 @@ Carte = {
     },
   },
 }
-
-HomeDirectory = os.getenv("HOME") or os.getenv("USERPROFILE")
-
-assert((HomeDirectory ~= nil), "Unable to set HomeDirectory variable")
-
-if string.find(HomeDirectory, "/") ~= nil then
-  NvimDataDirectory = HomeDirectory .. "/.local/share/nvim"
-  NvimDirectory = HomeDirectory .. "/.config/nvim"
-else
-  NvimDataDirectory = HomeDirectory .. "\\AppData\\Local\\nvim-data"
-  NvimDirectory = HomeDirectory .. "\\AppData\\Local\\nvim"
-end

@@ -12,6 +12,5 @@ lua/plugins/lsp/*
 !lua/plugins/lsp/lsp.lua
 !lua/plugins/lsp/template.lua
 
-lua/work/*
-!lua/work/init.lua
+lua/work/plugins/*
 !lua/work/plugins/init.lua
