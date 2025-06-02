@@ -89,31 +89,7 @@ return {
         desc = "LSP Info",
       }
     },
-    opts_extend = { "ensure_installed" },
-    opts = {
-      ui = {
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
-        },
-      },
-      ensure_installed = {
-        "lua-language-server", -- lua_ls: Name matches Mason registry entry.
-      },
-    },
-    config = function(_, opts)
-      require("mason").setup(opts)
-      local msr = require("mason-registry")
-
-      for _, tool in ipairs(opts.ensure_installed) do
-        local p = msr.get_package(tool)
-        if not p:is_installed() then
-          print("Attempting to install " .. tool .. " via mason")
-          p:install()
-        end
-      end
-    end,
+    opts = {},
   },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -126,9 +102,9 @@ return {
       "hrsh7th/cmp-cmdline",
       "hrsh7th/nvim-cmp",
       "L3MON4D3/LuaSnip",
-      "j-hui/fidget.nvim",
+      { "j-hui/fidget.nvim", opts = {} },
     },
-    opts_extend = { "handlers" },
+    opts_extend = { "handlers", "ensure_installed" },
     opts = {
       diagnostics = {
         underline = true,
@@ -160,6 +136,16 @@ return {
             },
           },
         },
+      },
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+      ensure_installed = {
+        "lua_ls",
       },
       automatic_installation = true,
       handlers = {
@@ -213,6 +199,7 @@ return {
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
       -- Finally run mason-lspconfig
+      require("mason").setup(opts)
       require("mason-lspconfig").setup(opts)
     end,
   },
