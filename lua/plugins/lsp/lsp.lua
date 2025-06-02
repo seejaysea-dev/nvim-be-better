@@ -138,6 +138,16 @@ return {
           },
         },
       },
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+      ensure_installed = {
+        "lua_ls",
+      },
       automatic_installation = true,
       automatic_enable = true,
     },
@@ -167,6 +177,7 @@ return {
       })
 
       -- Finally run mason-lspconfig
+      require("mason").setup(opts)
       require("mason-lspconfig").setup(opts)
     end,
   },
