@@ -10,6 +10,7 @@ data
 
 lua/plugins/lsp/*
 !lua/plugins/lsp/lsp.lua
+!lua/plugins/lsp/lua_ls.lua
 !lua/plugins/lsp/template.lua
 
 lua/work/plugins/*

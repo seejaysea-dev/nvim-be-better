@@ -34,14 +34,7 @@ return {
         additional_vim_regex_highlighting = false,
       },
       indent = { enable = true },
-      ensure_installed = {
-        "bash",
-        "lua",
-        "luadoc",
-        "luap",
-        "vim",
-        "vimdoc",
-      },
+      ensure_installed = {},
       incremental_selection = {
         enable = false,
         -- TODO: Incremental selection?
@@ -73,7 +66,7 @@ return {
   },
   -- Mason, LSP manager
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     lazy = false,
     cmd = "Mason",
     build = ":MasonUpdate",
@@ -89,13 +82,21 @@ return {
         desc = "LSP Info",
       }
     },
-    opts = {},
+    opts = {
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+    },
   },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
@@ -137,54 +138,8 @@ return {
           },
         },
       },
-      ui = {
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
-        },
-      },
-      ensure_installed = {
-        "lua_ls",
-      },
       automatic_installation = true,
-      handlers = {
-        function(server_name) -- Default handler
-          local cmp_lsp = require("cmp_nvim_lsp")
-          capabilities = vim.tbl_deep_extend(
-            "force",
-            {},
-            vim.lsp.protocol.make_client_capabilities(),
-            cmp_lsp.default_capabilities()
-          )
-
-          require("lspconfig")[server_name].setup({ capabilities = capabilities })
-        end,
-        lua_ls = function()
-          require("lspconfig").lua_ls.setup({
-            capabilities = capabilities,
-            settings = {
-              Lua = {
-                runtime = {
-                  version = "LuaJIT",
-                },
-                diagnostics = {
-                  globals = { "vim" },
-                },
-                workspace = {
-                  library = {
-                    vim.env.VIMRUNTIME,
-                  },
-                },
-                -- Do not send telemetry data containing a randomized but unique identifier
-                telemetry = {
-                  enable = false,
-                },
-              },
-            },
-          })
-        end, -- End Lua settings
-      },
+      automatic_enable = true,
     },
     config = function(_, opts)
       opts.diagnostics.virtual_text.prefix = function(diagnostic)
@@ -198,8 +153,20 @@ return {
 
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
+      local cmp_lsp = require("cmp_nvim_lsp")
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        cmp_lsp.default_capabilities()
+      )
+
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+        root_markers = { '.git' },
+      })
+
       -- Finally run mason-lspconfig
-      require("mason").setup(opts)
       require("mason-lspconfig").setup(opts)
     end,
   },
