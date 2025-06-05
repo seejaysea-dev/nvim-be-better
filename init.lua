@@ -32,7 +32,7 @@ autocmd("LspAttach", {
   end,
 })
 
-ColorMyPencils(Carte.colors.name)
+ColorMyPencils()
 
 local stats = vim.uv.fs_stat(vim.fn.argv(0))
 
