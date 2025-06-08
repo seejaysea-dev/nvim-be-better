@@ -8,6 +8,7 @@ foo.*
 *.log
 data
 
+# Ignore lsp settings (aside from lua_ls)
 lua/plugins/lsp/*
 !lua/plugins/lsp/lsp.lua
 !lua/plugins/lsp/lua_ls.lua

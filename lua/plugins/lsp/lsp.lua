@@ -105,7 +105,7 @@ return {
       "L3MON4D3/LuaSnip",
       { "j-hui/fidget.nvim", opts = {} },
     },
-    opts_extend = { "handlers", "ensure_installed" },
+    opts_extend = { "ensure_installed" },
     opts = {
       diagnostics = {
         underline = true,
@@ -138,16 +138,7 @@ return {
           },
         },
       },
-      ui = {
-        icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
-        },
-      },
-      ensure_installed = {
-        "lua_ls",
-      },
+      ensure_installed = {},
       automatic_installation = true,
       automatic_enable = true,
     },
@@ -177,7 +168,6 @@ return {
       })
 
       -- Finally run mason-lspconfig
-      require("mason").setup(opts)
       require("mason-lspconfig").setup(opts)
     end,
   },

@@ -2,6 +2,9 @@ if true then return {} end
 
 -- Setup LSP settings for a specific language (Example: omnisharp)
 return {
+  -- REQUIRED: treesitter and mason-lspconfig.
+  --
+  -- These setup the `"ensure_installed"` opts
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -11,7 +14,7 @@ return {
     }
   },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
         "omnisharp",
@@ -20,11 +23,13 @@ return {
       },
     },
   },
+  -- OPTIONAL: Other plugins
+  -- conform sets up formatting
   {
     "stevearc/conform.nvim",
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
     },
     optional = true,
     --@module "conform"
@@ -39,13 +44,6 @@ return {
           args = { "--write-stdout" },
         },
       },
-    },
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
     },
   },
   {

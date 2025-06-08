@@ -41,7 +41,6 @@ vim.lsp.config("lua_ls", {
 })
 
 return {
-
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
