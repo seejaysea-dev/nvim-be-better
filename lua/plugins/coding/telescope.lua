@@ -59,7 +59,7 @@ return {
   opts = {
     defaults = {
       layout_strategy = "horizontal",
-      layout_config = { prompt_position = "bottom" },
+      layout_config = { prompt_position = "top" },
       sorting_strategy = "ascending",
       scroll_strategy = "limit",
       path_display = display_file_first,
