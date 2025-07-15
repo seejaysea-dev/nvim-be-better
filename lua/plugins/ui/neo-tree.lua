@@ -2,6 +2,7 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
+  lazy = true,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
@@ -11,28 +12,50 @@ return {
     {
       "<leader>fe",
       function()
-        require("neo-tree.command").execute({ toggle = true, dir = Carte.RootDir })
+        require("neo-tree.command").execute({
+          action = "focus",
+          position = "left",
+          source = "filesystem",
+          toggle = true,
+          dir = Carte.RootDir,
+        })
       end,
       desc = "Neotree Explorer (Root Dir)"
     },
     {
       "<leader>fE",
       function()
-        require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+        require("neo-tree.command").execute({
+          action = "focus",
+          position = "left",
+          source = "filesystem",
+          toggle = true,
+          dir = vim.uv.cwd()
+        })
       end,
       desc = "Neotree Explorer (cwd)"
     },
     {
       "<leader>ge",
       function()
-        require("neo-tree.command").execute({ source = "git_status", toggle = true })
+        require("neo-tree.command").execute({
+          action = "show",
+          position = "left",
+          source = "git_status",
+          toggle = true
+        })
       end,
       desc = "Git Explorer",
     },
     {
       "<leader>be",
       function()
-        require("neo-tree.command").execute({ source = "buffers", toggle = true })
+        require("neo-tree.command").execute({
+          action = "show",
+          position = "left",
+          source = "buffers",
+          toggle = true
+        })
       end,
       desc = "Buffer Explorer",
     },
@@ -48,11 +71,16 @@ return {
       desc = "Toggle NeoTree (cwd)",
       remap = true,
     },
+    {
+      "<leader>pv",
+      "<cmd>Ex<cr>",
+      desc = "Reveal current file in netrw"
+    },
   },
   opts = {
     filesystem = {
       bind_to_cwd = false,
-      follow_current_file = { enabled = true },
+      follow_current_file = { enabled = false },
       use_libuv_file_watcher = true,
       filtered_items = {
         visible = false,
@@ -60,11 +88,11 @@ return {
         hide_dotfiles = false,
         hide_gitignored = true,
         hide_by_name = {
-          ".DS_Store",
           "thumbs.db",
         },
         never_show = {
-          ".git"
+          ".git",
+          ".DS_Store",
         },
       },
     },
@@ -96,7 +124,7 @@ return {
       git_status = Carte.icons.git_status,
     },
   },
-  -- deactivate = function() vim.cmd([[Neotree close]]) end,
+  deactivate = function() vim.cmd([[Neotree close]]) end,
   init = function()
     vim.api.nvim_create_autocmd("BufEnter", {
       group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),

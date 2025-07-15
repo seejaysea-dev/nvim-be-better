@@ -9,7 +9,7 @@ return {
       { "<S-h>",      "<cmd>BufferLineCyclePrev<cr>",     desc = "Prev Buffer" },
       { "<S-l>",      "<cmd>BufferLineCycleNext<cr>",     desc = "Next Buffer" },
       { "<C-q>",      "<cmd>bp<bar>sp<bar>bn<bar>bd<cr>", desc = "Close Current Buffer" }, -- https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window
-      { "<leader>qp", "<C-q>",                            desc = "Close current buffer", remap = true },
+      { "<leader>fq", "<C-q>",                            desc = "Close current buffer", remap = true },
     },
     opts = {
       options = {
@@ -31,8 +31,8 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      require("bufferline").setup(opts)
-    end,
+    -- config = function(_, opts)
+    --   require("bufferline").setup(opts)
+    -- end,
   },
 }

@@ -1,3 +1,5 @@
+if true then return {} end
+  
 return {
   -- git signs highlights text that has changed since the last git commit
   {

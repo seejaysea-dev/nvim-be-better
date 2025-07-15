@@ -42,20 +42,36 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     {
-      -- HACK: This is easier
       "<C-p>",
-      "<cmd>Telescope git_files<cr>",
+      require("telescope.builtin").git_files,
+      desc = "Telescope git files",
     },
     {
-      -- HACK: This is easier
       "<leader>pf",
-      "<cmd>Telescope find_files<cr>",
+      require("telescope.builtin").find_files,
     },
     {
-      -- HACK: This is easier
       "<leader>ps",
-      "<cmd>Telescope live_grep<cr>",
-      desc = "Telescope Grep"
+      require("telescope.builtin").live_grep,
+      desc = "Telescope Grep",
+    },
+    {
+      "<leader>qc",
+      require("telescope.builtin").command_history,
+      desc = "Previous commands (Telescope)",
+    },
+    {
+      "<leader>uc",
+      require("telescope.builtin").colorscheme,
+      desc = "Select colorscheme",
+    },
+    {
+      "<leader>fbw",
+      function()
+        vim.cmd("yank")
+      end,
+      mode = { "v" },
+      desc = "Telescope grep search highlight",
     },
   },
   --@type telescope.Opts
@@ -67,6 +83,11 @@ return {
       scroll_strategy = "limit",
       path_display = display_file_first,
       winblend = 0,
+      mappings = {
+        i = {
+          ["<C-y>"] = require("telescope.actions").select_vertical,
+        }
+      },
     },
   },
 }

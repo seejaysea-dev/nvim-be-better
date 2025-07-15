@@ -13,13 +13,7 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
-  keys = {
-    {
-      "<leader>ud",
-      function() showRootDirectory = not showRootDirectory end,
-      desc = "Toggle root dir lualine",
-    },
-  },
+  keys = {},
   event = "VeryLazy",
   opts = function()
     -- PERF: we don't need this lualine require madness 🤷
@@ -38,11 +32,8 @@ return {
       },
       sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch" },
-
+        lualine_b = { "filename" },
         lualine_c = {
-          -- LazyVim.lualine.root_dir(),
-          { "filename" },
           {
             "diagnostics",
             symbols = {
@@ -58,22 +49,27 @@ return {
           { recordingStatus, padding = { left = 1, right = 1 }, separator = " " },
         },
         lualine_y = {
+          { "branch" },
           {
             "diff",
+            colored = true,
             symbols = {
               added = icons.git.added,
               modified = icons.git.modified,
               removed = icons.git.removed,
             },
             source = function()
-              local gitsigns = vim.b.gitsigns_status_dict
-              if gitsigns then
+              local signs = vim.b.minidiff_summary
+
+              if signs then
                 return {
-                  added = gitsigns.added,
-                  modified = gitsigns.changed,
-                  removed = gitsigns.removed,
+                  added = signs.add,
+                  modified = signs.change,
+                  removed = signs.delete
                 }
               end
+
+              return {}
             end,
           },
         },

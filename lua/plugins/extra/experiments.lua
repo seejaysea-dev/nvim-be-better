@@ -40,7 +40,6 @@ return {
           vim.wo.wrap = false
           vim.wo.number = true
           vim.wo.rnu = true
-          ColorMyPencils(Carte.colors.name)
         end,
         desc = "Toggle ZenMode",
       },

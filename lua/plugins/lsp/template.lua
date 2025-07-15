@@ -1,6 +1,6 @@
 if true then return {} end
 
--- Setup LSP settings for a specific language (Example: omnisharp)
+-- Template for setting new lsp configs
 return {
   -- REQUIRED: treesitter and mason-lspconfig.
   --
@@ -8,9 +8,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = {
-        "c_sharp"
-      }
+      ensure_installed = {}
     }
   },
   {

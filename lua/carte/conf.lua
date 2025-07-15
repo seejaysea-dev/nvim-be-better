@@ -1,8 +1,5 @@
+-- TODO: Convert to a module?
 Carte = {
-  colors = {
-    plugin = "catppuccin/nvim",
-    name = "catppuccin",
-  },
   icons = {
     diagnostics = {
       Error = " ",

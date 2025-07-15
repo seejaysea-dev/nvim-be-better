@@ -27,7 +27,6 @@ require("lazy").setup({
     { import = "plugins.lsp" },    -- LSP setup
     { import = "plugins.editor" }, -- Editor plugins
     { import = "plugins.extra" },  -- Extra plugins
-    { import = "plugins" },        -- Other plugins
     { import = "work.plugins" },   -- Work Specific setups
   },
   change_detection = {
@@ -43,7 +42,7 @@ require("lazy").setup({
         "gzip",
         -- "matchit",
         -- "matchparen",
-        "netrwPlugin",
+        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",

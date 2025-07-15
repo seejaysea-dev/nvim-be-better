@@ -2,7 +2,9 @@ return {
   {
     -- Cursor coloring
     "mawkler/modicator.nvim",
-    dependencies = Carte.colors.plugin,
+    dependencies = {
+      "catppuccin/nvim",
+    },
     opts = { show_warnings = true },
     init = function()
       vim.o.cursorline = true

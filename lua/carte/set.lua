@@ -21,14 +21,20 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.colorcolumn = "120"
 
-local function augroup(name)
-  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+vim.cmd.set("listchars=space:·,tab:󰄾_,trail:|,nbsp:+")
+vim.cmd.set("list")
+
+-- vim.cmd required to set splitright and splitbelow
+vim.cmd.set("splitright")
+vim.cmd.set("splitbelow")
+
+-- Set powershell 7 as default on Windows
+local os_name = os.getenv("OS")
+
+if os_name == "Windows_NT" then
+  vim.opt.shell = 'pwsh'
 end
 
--- Highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-  group = augroup("highlight_yank"),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
+-- vim.cmd required to set splitright and splitbelow
+vim.cmd.set("splitright")
+vim.cmd.set("splitbelow")

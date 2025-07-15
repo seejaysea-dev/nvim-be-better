@@ -14,5 +14,5 @@ lua/plugins/lsp/*
 !lua/plugins/lsp/lua_ls.lua
 !lua/plugins/lsp/template.lua
 
-lua/work/plugins/*
-!lua/work/plugins/init.lua
+# Ignore work specific settings
+lua/work/*
