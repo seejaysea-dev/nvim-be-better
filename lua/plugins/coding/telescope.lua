@@ -1,6 +1,3 @@
-if true then return {} end
-
--- NOTE: I am testing fzf. See fzf.lua
 local function normalize_path(path)
   return path:gsub("\\", "/")
 end
