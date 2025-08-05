@@ -54,6 +54,7 @@ return {
           "cs",
           "ps1",
           "psm1",
+          "json",
         }
 
         if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
