@@ -43,15 +43,18 @@ return {
       view = {
         style = "sign",
         signs = {
-          add = "▎",
-          change = "▎",
+          add = "+",
+          change = "~",
           delete = "",
         },
         priority = 199,
       },
       delay = {
-        text_change = 500,
+        text_change = 1000,
       },
+      options = {
+        wrap_goto = false -- wrap hunks
+      }
     },
   },
 }

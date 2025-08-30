@@ -33,6 +33,8 @@ local os_name = os.getenv("OS")
 
 if os_name == "Windows_NT" then
   vim.opt.shell = 'pwsh'
+  vim.opt.encoding = 'utf-8'
+  vim.opt.fileencoding = 'utf-8'
 end
 
 -- vim.cmd required to set splitright and splitbelow

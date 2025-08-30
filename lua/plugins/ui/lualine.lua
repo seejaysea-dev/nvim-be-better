@@ -10,17 +10,26 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
-  dependencies = {
-    "nvim-tree/nvim-web-devicons",
-  },
+  dependencies = {},
   keys = {},
   event = "VeryLazy",
   opts = function()
-    -- PERF: we don't need this lualine require madness 🤷
     local lualine_require = require("lualine_require")
     lualine_require.require = require
 
     local icons = Carte.icons
+    -- local colors = Carte.colors
+
+    local trouble = require("trouble")
+    local symbols = trouble.statusline({
+      mode = "symbols",
+      groups = {},
+      title = false,
+      filter = { range = true },
+      format = "{kind_icon}{symbol.name:Normal}",
+      hl_group = "lualine_c_normal",
+    })
+
 
     vim.o.laststatus = vim.g.lualine_laststatus
 
@@ -31,9 +40,30 @@ return {
         disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
       },
       sections = {
-        lualine_a = { "mode" },
-        lualine_b = { "filename" },
+        lualine_a = {
+          { "mode" },
+        },
+        lualine_b = {
+          -- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+          -- { "filename" },
+        },
         lualine_c = {
+          {
+            "buffers",
+            symbols = {
+              modified = ' ●', -- Text to show when the buffer is modified
+              alternate_file = '', -- Text to show to identify the alternate file
+              directory = '', -- Text to show when the buffer is a directory
+            },
+          },
+        },
+        lualine_x = {
+          {
+            symbols and symbols.get,
+            cond = function()
+              return vim.b.trouble_lualine ~= false and symbols.has()
+            end,
+          },
           {
             "diagnostics",
             symbols = {
@@ -43,9 +73,6 @@ return {
               hint = icons.diagnostics.Hint,
             },
           },
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-        },
-        lualine_x = {
           { recordingStatus, padding = { left = 1, right = 1 }, separator = " " },
         },
         lualine_y = {
@@ -74,30 +101,14 @@ return {
           },
         },
         lualine_z = {
-          { "progress", padding = { left = 1, right = 0 }, separator = " " },
+          -- { "progress", padding = { left = 1, right = 0 }, separator = " " },
           { "location", padding = { left = 0, right = 1 } },
         },
       },
       extensions = { "neo-tree", "lazy" },
     }
 
-    -- do not add trouble symbols if aerial is enabled
-    -- And allow it to be overriden for some buffer types (see autocmds)
-    local trouble = require("trouble")
-    local symbols = trouble.statusline({
-      mode = "symbols",
-      groups = {},
-      title = false,
-      filter = { range = true },
-      format = "{kind_icon}{symbol.name:Normal}",
-      hl_group = "lualine_c_normal",
-    })
-    table.insert(opts.sections.lualine_c, {
-      symbols and symbols.get,
-      cond = function()
-        return vim.b.trouble_lualine ~= false and symbols.has()
-      end,
-    })
+    vim.api.nvim_set_hl(0, "lualine_c_normal", { fg = Carte.colors.sapphire })
 
     return opts
   end,

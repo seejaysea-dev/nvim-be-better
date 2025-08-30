@@ -6,6 +6,7 @@ vim.keymap.set("n", "<leader>qv", vim.cmd.Ex, { desc = "Open NetRW explorer" })
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open NetRW" })
 vim.keymap.set("n", "<leader><leader>", vim.cmd.so, { desc = "Source current file" })
 vim.keymap.set("n", "<leader>fw", "<cmd>w<cr>", { desc = "Write File" })
+vim.keymap.set("n", "<c-s>", "<cmd>w<cr>", { desc = "Write File" })
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit NeoVim" })
 
 -- Normal Mode Remaps
@@ -52,6 +53,7 @@ vim.keymap.set("n", "<C-A-l>", "<cmd>vertical resize -2<cr>", { desc = "" })
 -- Buffer movements
 vim.keymap.set("n", "<S-h>", vim.cmd.bprevious, { desc = "Previous Buffer" })
 vim.keymap.set("n", "<S-l>", vim.cmd.bnext, { desc = "Next Buffer" })
+vim.keymap.set("n", "<C-q>", "<cmd>bn<bar>sp<bar>bp<bar>bd<cr>", { desc = "Close buffer" })
 
 -- Clear search with <esc>
 vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Clear highlighting" })
@@ -60,7 +62,7 @@ vim.keymap.set(
   { "n" },
   "<C-f>",
   function()
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('vi"y/<C-r>0<CR>N', true, false, true), 'v', false)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('yiw/<C-r>0<CR>N', true, false, true), 'v', false)
   end,
   { desc = "Search for word under cursor" }
 )

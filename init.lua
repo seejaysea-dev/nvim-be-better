@@ -6,4 +6,5 @@ if not ok then
   print("Unable to load work")
 end
 
-require("after")
+-- Set colors
+ColorMyPencils("catppuccin")

@@ -15,7 +15,7 @@ return {
     },
     keys = {
       {
-        "<leader>chf",
+        "<localleader>tt",
         "<cmd>Twilight<cr>",
         desc = "Toggle twilight",
       },
@@ -31,7 +31,7 @@ return {
         function()
           require("zen-mode").setup({
             window = {
-              width = 120,
+              width = .90,
               options = {},
             },
           })
@@ -45,24 +45,4 @@ return {
       },
     },
   },
-  {
-    "christoomey/vim-tmux-navigator",
-    event = "VeryLazy",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-    },
-    keys = {
-      { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
-      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-    },
-  }
-
-  -- TODO: Try [fzf-lua](https://github.com/ibhagwan/fzf-lua) compared to telescope.
 }
