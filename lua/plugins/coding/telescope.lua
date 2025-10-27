@@ -1,3 +1,5 @@
+if true then return {} end
+
 local function normalize_path(path)
   return path:gsub("\\", "/")
 end
