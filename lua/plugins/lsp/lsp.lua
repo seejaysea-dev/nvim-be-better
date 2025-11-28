@@ -14,10 +14,10 @@ vim.lsp.config('lua_ls', {
     Lua = {
       runtime = {
         version = "LuaJIT",
-        path = {
-          'lua/?.lua',
-          'lua/?/init.lua',
-        },
+        -- path = {
+        --   'lua/?.lua',
+        --   'lua/?/init.lua',
+        -- },
       },
       diagnostics = {
         globals = { "vim" },
@@ -40,7 +40,7 @@ return {
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    version = false,
+    version = "v0.10.0",
     build = ":TSUpdate",
     event = "VeryLazy",
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
@@ -72,7 +72,9 @@ return {
         additional_vim_regex_highlighting = false,
       },
       indent = { enable = true },
-      ensure_installed = {},
+      ensure_installed = {
+        "lua"
+      },
       incremental_selection = {
         enable = false,
         -- TODO: Incremental selection?
@@ -227,7 +229,6 @@ return {
           },
         },
       },
-      ensure_installed = {},
       automatic_installation = true,
       automatic_enable = true,
     },
