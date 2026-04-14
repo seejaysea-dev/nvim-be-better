@@ -2,7 +2,17 @@ return {
   {
     "echasnovski/mini.diff",
     event = "VeryLazy",
+    dependencies = {
+      { "echasnovski/mini-git" },
+    },
     keys = {
+      {
+        "<leader>mdt",
+        function()
+          require("mini.diff").toggle_overlay(0)
+        end,
+        desc = "Toggle mini.diff overlay",
+      },
       {
         "<leader>go",
         function()
@@ -43,9 +53,9 @@ return {
       view = {
         style = "sign",
         signs = {
-          add = "▎",
-          change = "▎",
-          delete = "",
+          add = Carte.icons.git.added,
+          change = Carte.icons.git.modified,
+          delete = Carte.icons.git.removed,
         },
         priority = 199,
       },

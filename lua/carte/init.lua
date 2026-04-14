@@ -1,3 +1,8 @@
+function ColorMyPencils(color)
+  color = color or "tokyonight"
+  vim.cmd.colorscheme(color)
+end
+
 require("carte.autocmds")
 require("carte.conf")
 require("carte.remaps")

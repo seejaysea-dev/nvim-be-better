@@ -5,7 +5,7 @@ return {
     opts = {},
     keys = {
       {
-        "<leader>cp",
+        "<leader>mp",
         function()
           vim.g.minipairs_disable = not vim.g.minipairs_disable
         end,
