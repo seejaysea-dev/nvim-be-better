@@ -27,6 +27,11 @@ return {
         "<cmd>FzfLua files<cr>",
         desc = "Find files"
       },
+      {
+        "<leader>ps",
+        "<cmd>FzfLua grep<cr>",
+        desc = "Grep for string"
+      },
     },
   }
 }
