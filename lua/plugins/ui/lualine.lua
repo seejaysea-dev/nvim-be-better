@@ -16,10 +16,6 @@ return {
   keys = {},
   event = "VeryLazy",
   opts = function()
-    -- PERF: we don't need this lualine require madness 🤷
-    local lualine_require = require("lualine_require")
-    lualine_require.require = require
-
     local icons = Carte.icons
 
     vim.o.laststatus = vim.g.lualine_laststatus
@@ -31,9 +27,11 @@ return {
         disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
       },
       sections = {
-        lualine_a = { "mode" },
-        lualine_b = { "filename" },
-        lualine_c = {
+        lualine_a = {
+          { "mode" },
+        },
+        lualine_b = {
+          { "filetype", icon_only = true, separator = " ", padding = { left = 1, right = 0 } },
           {
             "diagnostics",
             symbols = {
@@ -42,14 +40,16 @@ return {
               info = icons.diagnostics.Info,
               hint = icons.diagnostics.Hint,
             },
+            padding = { left = 1, right = 1 },
           },
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+        },
+        lualine_c = {
         },
         lualine_x = {
+          { "filename" },
           { recordingStatus, padding = { left = 1, right = 1 }, separator = " " },
         },
         lualine_y = {
-          { "branch" },
           {
             "diff",
             colored = true,
@@ -74,8 +74,9 @@ return {
           },
         },
         lualine_z = {
-          { "progress", padding = { left = 1, right = 0 }, separator = " " },
+          -- { "progress", padding = { left = 1, right = 0 }, separator = " " },
           { "location", padding = { left = 0, right = 1 } },
+          { "branch" },
         },
       },
       extensions = { "neo-tree", "lazy" },
