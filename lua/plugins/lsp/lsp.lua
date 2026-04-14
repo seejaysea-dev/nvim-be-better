@@ -29,7 +29,7 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
-    event = "BufEnter",
+    lazy = false,
     dependencies = {
       {
         -- Mason, LSP manager
