@@ -3,6 +3,7 @@ return {
     "folke/trouble.nvim",
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
+      { "nvim-lua/plenary.nvim" },
     },
     cmd = { "Trouble" },
     event = { "BufEnter" },
@@ -41,6 +42,7 @@ return {
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
       { "folke/trouble.nvim" },
+      { "nvim-lua/plenary.nvim" },
     },
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = { "BufEnter" },

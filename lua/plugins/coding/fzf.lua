@@ -2,7 +2,9 @@ return {
   {
     "ibhagwan/fzf-lua",
     -- optional for icon support
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons" },
+    },
     opts = {
       "default-title",
       fzf_colors = true,
@@ -21,11 +23,6 @@ return {
       },
       {
         "<leader>pf",
-        "<cmd>FzfLua git_files<cr>",
-        desc = "Find files in git repo"
-      },
-      {
-        "<leader>pF",
         "<cmd>FzfLua files<cr>",
         desc = "Find files"
       },
