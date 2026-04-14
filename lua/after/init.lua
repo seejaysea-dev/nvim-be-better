@@ -1,1 +1,1 @@
-ColorMyPencils()
+ColorMyPencils('catppuccin-mocha')
