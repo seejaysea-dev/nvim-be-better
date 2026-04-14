@@ -18,18 +18,18 @@ return {
       {
         "<leader>tt",
         "<cmd>InspectTree<cr>",
-        desc = "Show AST"
+        desc = "Show AST",
       },
       {
         "<leader>tg",
         "<cmd>Inspect<cr>",
-        desc = "Show AST Group"
+        desc = "Show AST Group",
       },
     },
     opts_extend = { "ensure_installed" },
     opts = {
       ensure_installed = {
-        "lua"
+        "lua",
       },
       -- TODO: Determine need for the following opts
       highlight = {
