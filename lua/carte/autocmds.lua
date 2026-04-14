@@ -16,15 +16,6 @@ autocmd({ "BufWritePre" }, {
   end,
 })
 
--- Run conform on specific files
-autocmd({ "BufWritePre" }, {
-  group = augroup("run_formatter"),
-  pattern = { "*.lua" }, -- Start with just Lua files
-  callback = function(ev)
-    require("conform").format()
-  end,
-})
-
 -- Stolen from ThePrimeagen [init.lua](https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/init.lua)
 autocmd("LspAttach", {
   group = augroup("lsp"),
