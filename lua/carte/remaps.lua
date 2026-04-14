@@ -24,6 +24,17 @@ km.set({ "n" }, "<leader>P", 'V"0p', { desc = "Replace line with last yank" })
 km.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without overwriting yank buffer" })
 km.set({ "n" }, '<leader>"', '"+yi"', { desc = 'Yank text between " to system clipboard' })
 km.set({ "n" }, "<leader>'", "\"+yi'", { desc = "Yank text between ' to system clipboard" })
+km.set(
+  { "n" },
+  "<C-q>",
+  function()
+    vim.cmd('bprevious')
+    vim.cmd('vsplit')
+    vim.cmd('bnext')
+    vim.cmd('bdelete')
+  end,
+  { desc = "Close current buffer" }
+)
 
 -- Because I am a windows user, Ctrl+v is fundamentally broken, I have to deal with this now
 km.set("n", "<A-v>", "<C-v>")
