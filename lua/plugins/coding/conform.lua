@@ -2,17 +2,16 @@ return {
   {
     "stevearc/conform.nvim",
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+      "folke/noice.nvim",
     },
-    event = { "BufWritePre" },
-    cmd = {
-      "ConformInfo",
-    },
+    event = { "BufWritePre", "VeryLazy" },
+    cmd = { "ConformInfo" },
     keys = {
       {
         -- Trigger format manually
-        "<leader>cf",
+        "<localleader>f",
         function()
           require("conform").format({ async = true, timeout_ms = 3000 })
         end,
@@ -22,8 +21,6 @@ return {
     opts_extend = { "formatters_by_ft", "formatters" },
     --@module "conform"
     --@type conform.setupOpts
-    ---@module "conform"
-    ---@type conform.setupOpts
     opts = {
       -- Define default format options
       default_format_opts = {
@@ -35,18 +32,8 @@ return {
       -- Define formatters by filetype
       formatters_by_ft = {
         lua = { "stylua" },
-        javascript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescript = { "prettier" },
-        typescriptreact = { "prettier" },
-        cs = { "csharpier" },
       },
-      formatters = {
-        csharpier = {
-          command = "dotnet csharpier",
-          args = { "--write-stdout" },
-        },
-      },
+      formatters = {},
       -- Setup format on save. For now manual format only
       format_on_save = function(bufnr)
         -- Ignore file extensions
@@ -67,7 +54,7 @@ return {
 
         -- Don't format certain directories
         local ignored_directories = function(bufName)
-          if bufName:match('/node_modules/') then
+          if bufName:match("/node_modules/") then
             return true
           end
 
@@ -80,9 +67,32 @@ return {
 
         return {
           timeout_ms = 500,
-          lsp_format = "fallback"
+          lsp_format = "fallback",
         }
       end,
     },
+    config = function(_, opts)
+      local mr = require("mason-registry")
+      for lang, formatters in pairs(opts.formatters_by_ft) do
+        vim.notify("Installing formatters for " .. lang, vim.log.levels.DEBUG, { title = "Conform" })
+        for _, formatter in ipairs(formatters) do
+          vim.notify("Checking install status of " .. formatter, vim.log.levels.DEBUG, { title = "Conform" })
+          local installed = mr.is_installed(formatter)
+          if not installed then
+            vim.notify(
+              "Attempting to install " .. formatter .. " with Mason",
+              vim.log.levels.INFO,
+              { title = "Conform" }
+            )
+            vim.cmd.MasonInstall(formatter)
+          else
+            vim.notify(formatter .. " is already installed", vim.log.levels.DEBUG, { title = "Conform" })
+          end
+        end
+      end
+
+      print("Running conform setup")
+      require("conform").setup(opts)
+    end,
   },
 }
